@@ -14,8 +14,16 @@ REST API exposing Google Magika's file type detection capabilities using deep le
 ## Project Structure
 
 ```
-src/index.js    # Entry point, contains all endpoints
-package.json    # Dependencies and scripts
+src/
+├── index.js              # Entry point, Fastify setup
+├── services/
+│   └── magika.js         # Magika singleton service
+└── routes/
+    ├── index.js          # Routes aggregator
+    ├── types.js          # GET /types
+    ├── detect.js         # POST /detect
+    ├── validate.js       # POST /validate
+    └── health.js         # GET /health
 ```
 
 ## Development
