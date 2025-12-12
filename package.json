@@ -1,0 +1,26 @@
+{
+  "name": "mimetype-api",
+  "version": "1.0.0",
+  "description": "API REST exposant les fonctionnalités de Google Magika pour la détection de types de fichiers",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": [
+    "magika",
+    "mimetype",
+    "file-detection",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "fastify": "^5.1.0",
+    "magika": "^0.3.1"
+  }
+}
