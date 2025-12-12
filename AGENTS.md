@@ -15,7 +15,8 @@ REST API exposing Google Magika's file type detection capabilities using deep le
 
 ```
 src/
-├── index.js              # Entry point, Fastify setup
+├── index.js              # Entry point
+├── app.js                # Fastify app builder
 ├── services/
 │   ├── magika.js         # Magika singleton service
 │   └── fetch.js          # Secure fetch with SSRF protection
@@ -27,6 +28,9 @@ src/
     ├── validate.js       # POST /validate
     ├── validate-url.js   # GET /validate-url
     └── health.js         # GET /health
+tests/
+├── fetch.test.js         # SSRF protection tests
+└── routes.test.js        # API routes tests
 ```
 
 ## Development
@@ -35,6 +39,7 @@ src/
 npm install     # Install dependencies
 npm run dev     # Run in watch mode
 npm start       # Run in production
+npm test        # Run unit tests (node:test)
 ```
 
 ## API Endpoints
@@ -68,13 +73,23 @@ npm start       # Run in production
 
 ## Testing
 
+Unit tests use Node.js native test runner (`node:test`):
+
+```bash
+npm test        # Run all tests
+```
+
+Manual testing with curl:
+
 ```bash
 curl http://localhost:3000/types
 curl -X POST --data-binary @file.png http://localhost:3000/detect
-curl -X POST --data-binary @file.png "http://localhost:3000/validate?types=png,jpg"
+curl -X POST --data-binary @file.png "http://localhost:3000/validate?types=png,jpeg"
 curl "http://localhost:3000/detect-url?url=https://example.com/image.png"
-curl "http://localhost:3000/validate-url?url=https://example.com/image.png&types=png,jpg"
+curl "http://localhost:3000/validate-url?url=https://example.com/image.png&types=png,jpeg"
 ```
+
+Note: Magika uses `jpeg` (not `jpg`) as the label for JPEG files.
 
 ## Security
 

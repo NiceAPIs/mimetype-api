@@ -34,11 +34,11 @@ const BLOCKED_HOSTNAMES = [
   "metadata.goog",
 ];
 
-function isBlockedIP(ip) {
+export function isBlockedIP(ip) {
   return BLOCKED_IP_PATTERNS.some((pattern) => pattern.test(ip));
 }
 
-function isBlockedHostname(hostname) {
+export function isBlockedHostname(hostname) {
   const lower = hostname.toLowerCase();
   return BLOCKED_HOSTNAMES.some(
     (blocked) => lower === blocked || lower.endsWith(`.${blocked}`)
