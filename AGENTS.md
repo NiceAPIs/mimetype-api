@@ -29,8 +29,16 @@ src/
     ├── validate-url.js   # GET /validate-url
     └── health.js         # GET /health
 tests/
+├── helpers.js            # Test utilities and fixtures
 ├── fetch.test.js         # SSRF protection tests
-└── routes.test.js        # API routes tests
+└── routes/
+    ├── health.test.js    # GET /health tests
+    ├── types.test.js     # GET /types tests
+    ├── detect.test.js    # POST /detect tests
+    ├── detect-url.test.js # GET /detect-url tests
+    ├── validate.test.js  # POST /validate tests
+    ├── validate-url.test.js # GET /validate-url tests
+    └── not-found.test.js # 404 handler tests
 ```
 
 ## Development
