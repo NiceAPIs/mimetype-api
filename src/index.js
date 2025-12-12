@@ -27,7 +27,9 @@ app.setNotFoundHandler((request, reply) => {
     availableEndpoints: [
       "GET /types - List all supported file types",
       "POST /detect - Detect file type from binary content",
+      "GET /detect-url?url=... - Detect file type from URL",
       "POST /validate?types=png,jpg - Validate file matches expected type(s)",
+      "GET /validate-url?url=...&types=png,jpg - Validate file from URL",
       "GET /health - Health check",
     ],
   });
