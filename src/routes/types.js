@@ -1,21 +1,32 @@
 import { getMagika } from "../services/magika.js";
 
 const schema = {
+  summary: "List supported file types",
+  description: "Returns all file types that can be detected by Magika",
+  tags: ["info"],
   response: {
     200: {
+      description: "List of supported types",
       type: "object",
       properties: {
-        count: { type: "integer" },
+        count: { type: "integer", description: "Total number of supported types" },
         types: {
           type: "array",
           items: {
             type: "object",
             properties: {
-              label: { type: "string" },
-              isText: { type: "boolean" },
+              label: { type: "string", description: "Type identifier (e.g., png, pdf, javascript)" },
+              isText: { type: "boolean", description: "Whether this type is text-based" },
             },
           },
         },
+      },
+      example: {
+        count: 353,
+        types: [
+          { label: "png", isText: false },
+          { label: "javascript", isText: true },
+        ],
       },
     },
   },

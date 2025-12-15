@@ -58,6 +58,7 @@ npm test        # Run unit tests (node:test)
 - `POST /validate?types=png,jpg` - Validate file type (binary body)
 - `GET /validate-url?url=...&types=png,jpg` - Validate file type from URL
 - `GET /health` - Health check
+- `GET /docs` - OpenAPI documentation (Swagger UI)
 
 ## Code Conventions
 
@@ -77,6 +78,8 @@ npm test        # Run unit tests (node:test)
 ## Key Dependencies
 
 - `fastify` - High-performance web framework
+- `@fastify/swagger` - OpenAPI spec generation
+- `@fastify/swagger-ui` - Swagger UI integration
 - `magika` - Google's deep learning file type detection
 
 ## Testing
@@ -98,6 +101,12 @@ curl "http://localhost:3000/validate-url?url=https://example.com/image.png&types
 ```
 
 Note: Magika uses `jpeg` (not `jpg`) as the label for JPEG files.
+
+## OpenAPI Documentation
+
+- Swagger UI available at `/docs`
+- OpenAPI 3.0 spec auto-generated from route schemas
+- Endpoints grouped by tags: `detection`, `validation`, `info`
 
 ## Security
 

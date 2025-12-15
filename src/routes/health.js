@@ -1,12 +1,20 @@
 import { isMagikaLoaded } from "../services/magika.js";
 
 const schema = {
+  summary: "Health check",
+  description: "Returns the health status of the API",
+  tags: ["info"],
   response: {
     200: {
+      description: "API is healthy",
       type: "object",
       properties: {
-        status: { type: "string" },
-        magikaLoaded: { type: "boolean" },
+        status: { type: "string", description: "Health status" },
+        magikaLoaded: { type: "boolean", description: "Whether Magika model is loaded" },
+      },
+      example: {
+        status: "ok",
+        magikaLoaded: true,
       },
     },
   },

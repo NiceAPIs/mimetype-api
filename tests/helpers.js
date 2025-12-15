@@ -6,7 +6,7 @@ let app = null;
 export async function getApp() {
   if (!app) {
     await getMagika();
-    app = buildApp();
+    app = await buildApp();
     await app.ready();
   }
   return app;

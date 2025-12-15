@@ -9,25 +9,45 @@ const errorSchema = {
 };
 
 const schema = {
+  summary: "Validate file type",
+  description: "Checks if a file matches one of the expected types. Send file as binary body.",
+  tags: ["validation"],
   querystring: {
     type: "object",
     required: ["types"],
     properties: {
-      types: { type: "string", minLength: 1 },
+      types: {
+        type: "string",
+        minLength: 1,
+        description: "Comma-separated list of expected types (e.g., png,jpeg,gif)",
+      },
     },
   },
   response: {
     200: {
+      description: "Validation result",
       type: "object",
       properties: {
-        valid: { type: "boolean" },
-        detectedType: { type: "string" },
-        expectedTypes: { type: "array", items: { type: "string" } },
-        confidence: { type: "number" },
+        valid: { type: "boolean", description: "Whether file matches expected types" },
+        detectedType: { type: "string", description: "Actual detected type" },
+        expectedTypes: { type: "array", items: { type: "string" }, description: "List of expected types" },
+        confidence: { type: "number", description: "Confidence score (0-1)" },
+      },
+      example: {
+        valid: true,
+        detectedType: "png",
+        expectedTypes: ["png", "jpeg", "gif"],
+        confidence: 0.99,
       },
     },
-    400: errorSchema,
-    422: errorSchema,
+    400: {
+      description: "Bad request - missing body or unknown types",
+      ...errorSchema,
+    },
+    422: {
+      description: "Detection failed",
+      ...errorSchema,
+    },
   },
 };
 

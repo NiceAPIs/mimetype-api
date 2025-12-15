@@ -10,21 +10,29 @@ const errorSchema = {
 };
 
 const schema = {
+  summary: "Detect file type from URL",
+  description: "Fetches content from a URL and detects its file type. Includes SSRF protection.",
+  tags: ["detection"],
   querystring: {
     type: "object",
     required: ["url"],
     properties: {
-      url: { type: "string", minLength: 1 },
+      url: {
+        type: "string",
+        minLength: 1,
+        description: "URL to fetch and analyze (e.g., https://example.com/image.png)",
+      },
     },
   },
   response: {
     200: {
+      description: "Successful detection",
       type: "object",
       properties: {
-        url: { type: "string" },
-        type: { type: "string" },
-        isText: { type: "boolean" },
-        confidence: { type: "number" },
+        url: { type: "string", description: "The analyzed URL" },
+        type: { type: "string", description: "Detected file type" },
+        isText: { type: "boolean", description: "Whether the file is text-based" },
+        confidence: { type: "number", description: "Confidence score (0-1)" },
         details: {
           type: "object",
           properties: {
@@ -33,9 +41,22 @@ const schema = {
           },
         },
       },
+      example: {
+        url: "https://example.com/image.png",
+        type: "png",
+        isText: false,
+        confidence: 0.99,
+        details: { dlPrediction: "png", overwriteReason: null },
+      },
     },
-    400: errorSchema,
-    422: errorSchema,
+    400: {
+      description: "Bad request - invalid URL or blocked by SSRF protection",
+      ...errorSchema,
+    },
+    422: {
+      description: "Detection failed",
+      ...errorSchema,
+    },
   },
 };
 
